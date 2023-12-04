@@ -18,7 +18,7 @@
     {% block content %}
     <form action="/get-register-info" method="post">
         
-    <section id="back">
+        
             <h3 id="Informações">Informações pessoais</h3>
 
             <div id="div-nome">
@@ -309,11 +309,11 @@
                     <option value="Zâmbia">Zâmbia</option>
                 </select>
             </div>
-    </section>
+       
 
         
 
-            <h3 id="contato2">Informações para contato</h3>
+            <h3>Informações para contato</h3>
 
             <div id="div-emailcontato">
                 <label for="contact-email">Email para contato:</label>
@@ -325,7 +325,10 @@
                 <input type="tel" name="phone-number" id="telefone" maxlength="15" placeholder="(XX) XXXXX-XXXX" onkeyup="handlePhone(event)" required>
             </div>
 
-    
+        
+
+        
+             
             <div id="div-cep">
                 <label for="cep">CEP:</label>
                 <input type="text" name="cep" maxlength="9" onkeyup="handleZipCode(event)" id="cep" required>

@@ -1,94 +1,16 @@
-html{
+body {
     background-image: url("../img/azul.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed
-}
-#titulo{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 100px;
-}
-#Informações{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 0px;
-}
-#div-nome{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 0px;
-}
-#div-nascimento{
-    
-}
-#div-cpf{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 0px;
-}
-#div-genero{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 0px;
-}
-#div-estadocivil{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 0px;
-}
-#div-nacionalidade{
-    display: flex;
-    justify-content: center;
-    width: 50%;
-    margin-top: 0px;
-}
-#back{
-    width: 100%;
-    padding: 5px 5px;
-    display: inline-block;
-    border: 0;
-    border-bottom: 2px solid #272262;
-    background-color: transparent;
-    outline: none;
-    min-width: 180px;
-    font-size: 16px;
-    transition: all .3s ease-out;
-    border-radius: 0;
-    background-color:rgba(255, 255, 255, 0.44)
-    
-}
-#contato2{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    transform: translateY(-850%);
-}
-#div-emailcontato{
-    display: flex;
-    justify-content: center;
-    width: 105%;
-    transform: translateY(-870%);
-}
-#div-telefone{
-    display: flex;
-    justify-content: center;
-    width: 105%;
-    transform: translateY(-870%);
-}
-#div-cep{
-    display: flex;
-    justify-content: center;
-    width: 110%;
-    transform: translateY(-900%);
-    height: 20px;
-}
-#div-estado{
 
+}
+ #Informações{
+    
+ }
+  
+#login-page{
+  color: red;
+  background-color: rgba(0, 0, 0, 0.218);
+  width: 20%;
 }
