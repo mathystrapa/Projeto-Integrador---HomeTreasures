@@ -1,16 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
+
 body {
     background-image: url("../img/azul.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed
-
 }
- #Informações{
+#titulo{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#Informações{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-nome{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-nascimento{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-cpf{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-genero{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-estadocivil{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-nacionalidade{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#contato{
+    display: flex;
+    justify-content: center;
+     width: 100%;
+}
+#div-emailcontato{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-57%);
+}
+#div-telefone{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-56%);
+}
+#div-cep{
+    display: flex;
+    justify-content: center;
+     width: 115%;
+     transform: translateY(-55%);
+     height: 20px;
+}
+#div-estado{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-50%);
+}
+#div-cidade{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-50%);
+}
+#div-logradouro{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-50%);
+}
+#div-complemento{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-50%);
+}
+#div-emaillogin{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-50%);
+}
+#enviar{
+    margin: 10px auto;
+    display: block;
+}
+#div-senha{
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-50%);
+}
+form{
+    background-color: #ffffff80;
+    padding: 30px;
+    border-radius: 4%;
+    box-shadow: 3px 3px 1px 0px #00000060
+
     
- }
+}
+   
+
   
 #login-page{
-  color: red;
-  background-color: rgba(0, 0, 0, 0.218);
-  width: 20%;
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-80%);
+    color: red;
 }
