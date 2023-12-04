@@ -244,20 +244,30 @@ def finalizar_compra():
 
     aux_account_info = server.select('hometreasures', 'CLIENTES', ['NOME', 'DATA_NASC', 'CPF', 'GENERO', 'ESTADO_CIVIL', 'NACIONALIDADE', 'EMAIL_CONTATO', 'TELEFONE', 'CEP', 'ESTADO', 'CIDADE', 'LOGRADOURO', 'COMPLEMENTO', 'EMAIL_LOGIN', 'SENHA'], f""" EMAIL_LOGIN = '{email_login}' """)[0]
     info_endereco = [aux_account_info[8], aux_account_info[9], aux_account_info[10], aux_account_info[11], aux_account_info[12]]
-    print(info_endereco)
     return render_template("finalizar_compra.html", info_endereco = info_endereco)
 
 @app.route('/agradecimento')
 def agradecimento():
-    return render_template('agradecimento.html', nome=nome)
+
+    for product_name, amount in produtos_carrinho.items():
+        old_amount = server.select('hometreasures', 'PRODUTOS', ['ESTOQUE'], f""" NOME = '{product_name}' """)[0][0]
+        result = server.update('hometreasures', 'PRODUTOS', ['ESTOQUE'],  [f'{old_amount - amount}'], f""" NOME = '{product_name}' """)
+        print(result)
+        if result[0]:
+            return render_template('agradecimento.html', nome=nome)
+        else:
+            print(result[1])
+            return redirect(url_for('erro'))
+        
+@app.route('/erro')
+def erro():
+    return render_template('erro.html')
 
 
 def obter_infos_produtos():
     infos_produtos = []
     select_result = server.select('hometreasures', 'PRODUTOS', ['*'])
     quantidade_produtos = len(select_result)
-
-    print(quantidade_produtos)
 
     for cod in range(1, quantidade_produtos + 1):
         result = server.select('hometreasures', 'PRODUTOS', ['NOME', 'DESCRICAO', 'LINK_IMAGEM', 'PRECO'], f'COD_PRODUTO = {cod}')
