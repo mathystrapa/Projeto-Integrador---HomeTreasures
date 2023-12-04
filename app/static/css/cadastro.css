@@ -121,7 +121,14 @@ form{
 
     
 }
-   
+#div-erro{
+    color: red;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+     width: 105%;
+     transform: translateY(-80%);
+}
 
   
 #login-page{

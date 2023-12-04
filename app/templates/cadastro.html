@@ -400,22 +400,22 @@
                 <input type="password" name="confirm-password" id="confirmar-senha">
             </div>
 
-        
+            <div id="erro">
+                {% if mensagem %}
+                   <p>{{ mensagem }}</p>
+                {% endif %}
+            </div>
 
         <input type="submit" name="submit" id="enviar" value="Cadastrar">
 
     </form>
 
+    {% endblock %}
+    
+
     <div id="login-page">
         <p>Já possui uma conta? <a href="/entrar"><strong>Faça seu login!</strong></a></p>
     </div>
 
-    <div id="erro">
-        {% if mensagem %}
-           <p>{{ mensagem }}</p>
-        {% endif %}
-        {% endblock %}
-    </div>
-    
 </body>
 </html>

@@ -110,6 +110,7 @@ def process_register():
 
         if password != confirm_password:
             message = 'Erro. As senhas não coincidem.'
+            print(message)
             return render_template('cadastro.html', mensagem=message)   # se as senhas não forem iguais, o cadastro reinicia e uma mensagem aparece avisando que as senhas não coincidem
         
         else:
@@ -119,18 +120,22 @@ def process_register():
 
             if len(result_email) > 0:
                 message = 'Email já existe no banco de dados.'
+                print(message)
                 return render_template('cadastro.html', mensagem=message)
             
             elif len(result_cpf) > 0:
                 message = 'CPF já existe no banco de dados.'
+                print(message)
                 return render_template('cadastro.html', mensagem=message)
             
             else:
                 result = server.insert('hometreasures', 'CLIENTES', ['NOME', 'DATA_NASC', 'CPF', 'GENERO', 'ESTADO_CIVIL', 'NACIONALIDADE', 'EMAIL_CONTATO', 'TELEFONE', 'CEP', 'ESTADO', 'CIDADE', 'LOGRADOURO', 'COMPLEMENTO', 'EMAIL_LOGIN', 'SENHA'], (f'{name}', f'{data_nasc}', f'{cpf}', f'{gender}', f'{estado_civil}', f'{nacionality}', f'{contact_email}', phone, f'{cep}', f'{state}', f'{city}', f'{logradouro}', f'{complement}', f'{login_email}', f'{password}'))     # adiciona o novo cadastro ao banco de dados
                 if result[0]:
+                    print('carlos cadastrado')
                     return redirect(url_for('entrar'))   # renderiza a página de login
                 else:
                     message = f'Desculpe, não foi possível completar seu cadastro. Revise as informações inseridas e tente novamente. Código do erro: {result[1]}'
+                    print(message)
                     return render_template('cadastro.html', mensagem = message)
             
 @app.route('/account-info')
