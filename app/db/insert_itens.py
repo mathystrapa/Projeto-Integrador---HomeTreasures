@@ -15,7 +15,8 @@ suppliers = """
     ('Faro Atadado', 'Rua Piauí, 1500. Uberlândia, MG', 'faroatacado@email.com', 34999151001),
     ('Fornecedor 2', 'Avenida B, 456', 'fornecedor2@email.com', '9876543210'),
     ('Fornecedor 3', 'Rua C, 789', 'fornecedor3@email.com', '5555555555'),
-    ('Fornecedor 4', 'Avenida D, 101', 'fornecedor4@email.com', '9999999999')
+    ('Fornecedor 4', 'Avenida D, 101', 'fornecedor4@email.com', '9999999999'),
+    ('MadeiraMadeira', 'R. Mal. Deodoro, 717 - Centro, Curitiba - PR, 80010-010', 'madeiramadeira@email.com', '08000800099')
 """
 
 products = """
@@ -24,7 +25,8 @@ products = """
     ('Armário Sofia 1 porta', 'Com ele você não terá mais problemas com a organização do seu lar, suas prateleiras espaçosas são ótimas para você guardar sapatos e roupas, possuí  1 Porta de giro, 3 Gavetas e Nichos abertos.', 'https://product-hub-prd.madeiramadeira.com.br/711955/images/4412d5e9-e6cc-4058-a33c-0d8931221741jequitiba1644263185200zoom.jpg?width=700&canvas=1:1&bg-color=FFF',  200.00, 50, 1),
     ('Cama Athenas Solteiro', 'Se você está em busca de uma noite revigorante de sono, vai se apaixonar pela Cama Athenas. Confeccionada com materiais de qualidade e resistência, ela terá uma vida útil muito mais longa e ainda ajudará a decorar seu dormitório com graça e charme.', 'https://atacadotropicalmoveis.com.br/wp-content/uploads/2021/08/Cama-Athenas-Solt.jpg', 599.90, 30, 2),
     ('Cadeira Slin Eiffel', 'Além de funcional e super confortável, a cadeira Slim Eiffel irá completar a decoração da sua casa! Perfeita para sala de jantar, cozinha ou home office, possui o assento profundo e as costas ergonômicas para manter você sempre confortável!', 'https://atacadotropicalmoveis.com.br/wp-content/uploads/2019/07/38309722_1GG.jpg', 107.80, 80, 3),
-    ('Estofado Berlim 2,50 metros', 'Pilow com assento de 8 cm espuma de D 28. Espuma do pilow do braço D 26. Encosto e rineira em fibra mista. Molas Bonel. Tecido veludinho', 'https://crmagazineexpress.com.br/wp-content/uploads/2020/09/Sof%C3%A1-Retr%C3%A1til-Reclin%C3%A1vel-Berlim-2.50m-Veludo-Cinza-814-e1598642685284.jpg', 670.30, 20, 4)
+    ('Estofado Berlim 2,50 metros', 'Pilow com assento de 8 cm espuma de D 28. Espuma do pilow do braço D 26. Encosto e rineira em fibra mista. Molas Bonel. Tecido veludinho', 'https://crmagazineexpress.com.br/wp-content/uploads/2020/09/Sof%C3%A1-Retr%C3%A1til-Reclin%C3%A1vel-Berlim-2.50m-Veludo-Cinza-814-e1598642685284.jpg', 670.30, 20, 4),
+    ('Mesa de Jantar 6 Lugares 1,60m', 'A mesa Tangará, é a escolha perfeita para ambientes elegantes e sofisticados. Sendo uma peça extremamente funcional, ela proporciona todo conforto necessário sem abdicar do estilo e beleza. Possui os pés em madeira Tauari, com tampo em MDF e vidro com bordas chanfradas e acabamento em laca, resistente e elegante.', 'https://product-hub-prd.madeiramadeira.com.br/810295/images/810295_1.jpg?width=500&canvas=1:1&bg-color=FFF', 1500.79, 30, 5)
 """
 
 clients = """

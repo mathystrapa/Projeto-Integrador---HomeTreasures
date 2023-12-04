@@ -257,8 +257,6 @@ def obter_infos_produtos():
     select_result = server.select('hometreasures', 'PRODUTOS', ['*'])
     quantidade_produtos = len(select_result)
 
-    print(quantidade_produtos)
-
     for cod in range(1, quantidade_produtos + 1):
         result = server.select('hometreasures', 'PRODUTOS', ['NOME', 'DESCRICAO', 'LINK_IMAGEM', 'PRECO'], f'COD_PRODUTO = {cod}')
         nome = result[0][0]
