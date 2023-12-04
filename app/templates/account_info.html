@@ -59,7 +59,7 @@
                                             <input type="file" class="account-settings-fileinput">
                                         </label> &nbsp;
                                         <button type="button" class="btn btn-default md-btn-flat">Resetar</button>
-                                        <div class="text-light small mt-1">JPG, GIF or PNG. Tamanho máximo: 800K</div>
+                                        <div id="tipo=img">JPG, GIF or PNG. Tamanho máximo: 800K</div>
                                         <div class="error-message">
                                             {{mensagem_erro}}
                                         </div>
@@ -95,7 +95,10 @@
                                         <input type="text" class="form-control" value="{{senha}}" readonly>
                                     </div>
                                     <div class="error-message">
-                                        {{mensagem}}
+                                        {{mensagem_erro}}
+                                    </div>
+                                    <div class="sucess-message">
+                                        {{mensagem_sucesso}}
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Nova senha</label>

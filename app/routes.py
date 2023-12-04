@@ -5,6 +5,7 @@ app = Flask(__name__)   # cria a aplcação
 
 server = Connectserver(host='127.0.0.1', user='root', password='', port='3306')  # conecta com o banco de dados (já criado no arquivo createdb.py)
 
+account_info = {}
 login = False
 produtos_carrinho = {}
 nomes = []
@@ -135,8 +136,6 @@ def process_register():
 @app.route('/account-info')
 def info_account():
 
-    global account_info
-
     aux_account_info = server.select('hometreasures', 'CLIENTES', ['NOME', 'DATA_NASC', 'CPF', 'GENERO', 'ESTADO_CIVIL', 'NACIONALIDADE', 'EMAIL_CONTATO', 'TELEFONE', 'CEP', 'ESTADO', 'CIDADE', 'LOGRADOURO', 'COMPLEMENTO', 'EMAIL_LOGIN', 'SENHA'], f""" EMAIL_LOGIN = '{email_login}' """)[0]
 
     aux_data = str(aux_account_info[1])
@@ -187,7 +186,34 @@ def update_account():
 
         if nova_senha != confirmar_nova_senha:
             message = 'As senhas não coincidem.'
-            return render_template('account_info.html', account_info = account_info, mensagem = message)
+            aux_account_info = server.select('hometreasures', 'CLIENTES', ['NOME', 'DATA_NASC', 'CPF', 'GENERO', 'ESTADO_CIVIL', 'NACIONALIDADE', 'EMAIL_CONTATO', 'TELEFONE', 'CEP', 'ESTADO', 'CIDADE', 'LOGRADOURO', 'COMPLEMENTO', 'EMAIL_LOGIN', 'SENHA'], f""" EMAIL_LOGIN = '{email_login}' """)[0]
+
+            aux_data = str(aux_account_info[1])
+            ano = aux_data[0] + aux_data[1] + aux_data[2] + aux_data[3]
+            mes = aux_data[5] + aux_data[6]
+            dia = aux_data[8] + aux_data[9]
+            data_nasc = f'{dia}/{mes}/{ano}'
+
+            cpf = aux_account_info[2]
+            aux1 = cpf[0] + cpf[1] + cpf[2]
+            aux2 = cpf[3] + cpf[4] + cpf[5]
+            aux3 = cpf[6] + cpf[7] + cpf[8]
+            aux4 = cpf[9] + cpf[10]
+            cpf = f'{aux1}.{aux2}.{aux3}-{aux4}'
+
+            if aux_account_info[3] == 'M':
+                genero = 'Masculino'
+            else:
+                genero = 'Feminino'
+
+            aux_telefone = str(aux_account_info[7])
+            ddd = aux_telefone[0] + aux_telefone[1]
+            aux1 = aux_telefone[2] + aux_telefone[3] + aux_telefone[4] + aux_telefone[5] + aux_telefone[6]
+            aux2 = aux_telefone[7] + aux_telefone[8] + aux_telefone[9] + aux_telefone[10]
+            telefone = f'({ddd}) {aux1}-{aux2}'
+
+            account_info = {'nome': f'{aux_account_info[0]}', 'data_nasc': data_nasc, 'cpf': cpf, 'genero': genero, 'estado_civil': f'{aux_account_info[4]}', 'nacionalidade': f'{aux_account_info[5]}', 'email_contato': f'{aux_account_info[6]}', 'telefone': telefone, 'cep': f'{aux_account_info[8]}', 'estado': f'{aux_account_info[9]}', 'cidade': f'{aux_account_info[10]}', 'logradouro': f'{aux_account_info[11]}', 'complemento': f'{aux_account_info[12]}', 'email_login': f'{aux_account_info[13]}', 'senha': f'{aux_account_info[14]}'}
+            return render_template('account_info.html', account_info = account_info, mensagem_erro = message)
         else:
             if nova_senha == '':
                 senha_antiga = server.select('hometreasures', 'CLIENTES', ['SENHA'], f""" EMAIL_LOGIN = '{email_login}' """)[0][0]
@@ -248,7 +274,6 @@ def agradecimento():
     for product_name, amount in produtos_carrinho.items():
         old_amount = server.select('hometreasures', 'PRODUTOS', ['ESTOQUE'], f""" NOME = '{product_name}' """)[0][0]
         result = server.update('hometreasures', 'PRODUTOS', ['ESTOQUE'],  [f'{old_amount - amount}'], f""" NOME = '{product_name}' """)
-        print(result)
         if result[0]:
             return render_template('agradecimento.html', nome=nome)
         else:

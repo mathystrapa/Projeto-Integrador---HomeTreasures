@@ -116,3 +116,7 @@ html:not(.dark-style) .account-settings-links .list-group-item.active {
 .sucess-message {
     color: green;
 }
+
+#tipo-img {
+    color: #000;
+}
