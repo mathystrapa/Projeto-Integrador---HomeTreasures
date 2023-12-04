@@ -276,9 +276,6 @@ def agradecimento():
         result = server.update('hometreasures', 'PRODUTOS', ['ESTOQUE'],  [f'{old_amount - amount}'], f""" NOME = '{product_name}' """)
         if result[0]:
             return render_template('agradecimento.html', nome=nome)
-        else:
-            print(result[1])
-            return redirect(url_for('erro'))
         
 @app.route('/erro')
 def erro():
