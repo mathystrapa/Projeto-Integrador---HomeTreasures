@@ -13,9 +13,9 @@ suppliers = """
     INSERT INTO FORNECEDORES (NOME, ENDERECO, EMAIL, TELEFONE)
     VALUES
     ('Faro Atadado', 'Rua Piauí, 1500. Uberlândia, MG', 'faroatacado@email.com', 34999151001),
-    ('Fornecedor 2', 'Avenida B, 456', 'fornecedor2@email.com', 9876543210),
-    ('Fornecedor 3', 'Rua C, 789', 'fornecedor3@email.com', 5555555555),
-    ('Fornecedor 4', 'Avenida D, 101', 'fornecedor4@email.com', 9999999999)
+    ('Fornecedor 2', 'Avenida B, 456', 'fornecedor2@email.com', '9876543210'),
+    ('Fornecedor 3', 'Rua C, 789', 'fornecedor3@email.com', '5555555555'),
+    ('Fornecedor 4', 'Avenida D, 101', 'fornecedor4@email.com', '9999999999')
 """
 
 products = """

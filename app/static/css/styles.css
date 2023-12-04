@@ -6,7 +6,7 @@ body{
      margin: 0;
      padding: 0;
      box-sizing: border-box;
-     font-family: 'Sedgwick Ave', cursive;
+     font-family: 'Verdana (sans-serif)', cursive;
 }
 
 header{
@@ -59,6 +59,30 @@ nav ul li a{
     font-family: 'kumbh sans' , sans-serif;
     border-radius: 8px;
     border-color: rgba(0, 0, 0, 0.241);
-   
+} 
 
+.controles {
+    text-align: center; /* Alinhe o conteúdo ao centro */
+}
+
+.adicionar-ao-carrinho,
+.remover-do-carrinho {
+    font-size: 1.5em; /* Ajuste o tamanho da fonte para aumentar o tamanho do botão */
+    padding: 10px 20px; /* Adicione algum espaço interno para tornar os botões mais visíveis */
+    border: none; /* Remova a borda padrão */
+    background-color: #4CAF50; /* Cor de fundo verde para o botão de adicionar ao carrinho */
+    color: white; /* Cor do texto branco para melhor contraste */
+    cursor: pointer; /* Altere o cursor ao passar o mouse sobre o botão */
+    border-radius: 5px; /* Adicione bordas arredondadas para uma aparência mais suave */
+    margin: 5px; /* Adicione margem para separar os botões */
+}
+
+.remover-do-carrinho {
+    background-color: #f44336; /* Cor de fundo vermelha para o botão de remover do carrinho */
+}
+
+.controles p {
+    display: inline-block; /* Certifique-se de que o parágrafo não quebre a linha e fique ao lado dos botões */
+    font-size: 1.2em; /* Ajuste o tamanho da fonte para o parágrafo */
+    margin: 5px; /* Adicione margem para separar o parágrafo dos botões */
 }

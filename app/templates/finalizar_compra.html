@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/finalizar_compra.css">
+    <title>Confirmação de Compra</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Compra Efetuada com Sucesso!</h1>
+
+        {% set cep = info_endereco[0] %}
+        {% set estado = info_endereco[1] %}
+        {% set cidade = info_endereco[2] %}
+        {% set logradouro = info_endereco[3] %}
+        {% set complemento = info_endereco[4] %}
+
+        <div id="cadastroForm">
+            <h2>Informações de Endereço</h2>
+                <label for="cep">CEP:</label>
+                <input type="text" id="cep" value="{{cep}}" name="cep" readonly>
+
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" value="{{estado}}" name="estado" readonly>
+
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" value="{{cidade}}" name="cidade" readonly>
+
+                <label for="logradouro">Logradouro:</label>
+                <input type="text" id="logradouro" value="{{logradouro}}" name="logradouro" readonly>
+
+                <label for="complemento">Complemento:</label>
+                <input type="text" id="complemento" value="{{complemento}}" name="complemento" readonly>
+
+                <a href="/agradecimento"><button>Confirmar endererço</button></a>
+                <a href="/account-info"><button id="mudar-endereco">Mudar informações</button></a>
+        </div>
+    </div>
+</body>
+</html>

@@ -17,7 +17,7 @@ suppliers_table = """
             NOME VARCHAR(250) NOT NULL,
             ENDERECO VARCHAR(300),
             EMAIL VARCHAR(250),
-            TELEFONE BIGINT
+            TELEFONE VARCHAR(20)
         )
         """
 
