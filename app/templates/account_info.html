@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% set nome = account_info['nome'] %}
+    <title>Conta de {{nome}}</title>
+    <link rel="stylesheet" href="../static/css/account_info.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    {% set data_nasc = account_info['data_nasc'] %}
+    {% set cpf = account_info['cpf'] %}
+    {% set genero = account_info['genero'] %}
+    {% set estado_civil = account_info['estado_civil'] %}
+    {% set nacionalidade = account_info['nacionalidade'] %}
+    {% set email_contato = account_info['email_contato'] %}
+    {% set telefone = account_info['telefone'] %}
+    {% set cep = account_info['cep'] %}
+    {% set estado = account_info['estado'] %}
+    {% set cidade = account_info['cidade'] %}
+    {% set logradouro = account_info['logradouro'] %}
+    {% set complemento = account_info['complemento'] %}
+    {% set email_login = account_info['email_login'] %}
+    {% set senha = account_info['senha'] %}
+
+    
+    <form action="/update-account-info" method="post">
+        <div class="container light-style flex-grow-1 container-p-y">
+            <h4 class="font-weight-bold py-3 mb-4">
+                Informações da conta
+            </h4>
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action active" data-toggle="list"
+                                href="#account-general">Geral</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-change-password">Mudar senha</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-info">Informações da conta</a>
+                            <a class="list-group-item list-group-item-action" data-toggle="list"
+                                href="#account-notifications">Notificações</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active show" id="account-general">
+                                <div class="card-body media align-items-center">
+                                    <img src="../static/img/entrar.png" alt
+                                        class="d-block ui-w-80">
+                                    <div class="media-body ml-4">
+                                        <label class="btn btn-outline-primary">
+                                            Trocar foto
+                                            <input type="file" class="account-settings-fileinput">
+                                        </label> &nbsp;
+                                        <button type="button" class="btn btn-default md-btn-flat">Resetar</button>
+                                        <div class="text-light small mt-1">JPG, GIF or PNG. Tamanho máximo: 800K</div>
+                                        <div class="error-message">
+                                            {{mensagem_erro}}
+                                        </div>
+                                        <div class="sucess-message">
+                                            {{mensagem_sucesso}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Nome completo</label>
+                                        <input name="nome" type="text" class="form-control mb-1" value="{{nome}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail para contato</label>
+                                        <input name="email_contato" type="email" class="form-control" value="{{email_contato}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">E-mail para login</label>
+                                        <input type="text" class="form-control mb-1" value="{{email_login}}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Telefone</label>
+                                        <input name="telefone" type="tel" maxlength="15" class="form-control" value="{{telefone}}" onkeyup="handlePhone(event)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-change-password">
+                                <div class="card-body pb-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Senha atual</label>
+                                        <input type="text" class="form-control" value="{{senha}}" readonly>
+                                    </div>
+                                    <div class="error-message">
+                                        {{mensagem}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Nova senha</label>
+                                        <input name="nova_senha" type="password" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Confirmar nova senha</label>
+                                        <input name="confirmar_nova_senha" type="password" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="account-info">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Informações de endereço</h6>
+                                    <div class="form-group">
+                                        <label class="form-label">CEP</label>
+                                        <input name="cep" type="text" class="form-control" value="{{cep}}" maxlength="9" onkeyup="handleZipCode(event)">
+                                    </div>
+                                    <div class="form-select">
+                                        <label for="estado">Estado</label>
+                                        <select name="estado">
+                                            <option value="AC" {% if estado == 'AC' %}selected{% endif %}>Acre</option>
+                                            <option value="AL" {% if estado == 'AL' %}selected{% endif %}>Alagoas</option>
+                                            <option value="AP" {% if estado == 'AP' %}selected{% endif %}>Amapá</option>
+                                            <option value="AM" {% if estado == 'AM' %}selected{% endif %}>Amazonas</option>
+                                            <option value="BA" {% if estado == 'BA' %}selected{% endif %}>Bahia</option>
+                                            <option value="CE" {% if estado == 'CE' %}selected{% endif %}>Ceará</option>
+                                            <option value="DF" {% if estado == 'DF' %}selected{% endif %}>Distrito Federal</option>
+                                            <option value="ES" {% if estado == 'ES' %}selected{% endif %}>Espírito Santo</option>
+                                            <option value="GO" {% if estado == 'GO' %}selected{% endif %}>Goiás</option>
+                                            <option value="MA" {% if estado == 'MA' %}selected{% endif %}>Maranhão</option>
+                                            <option value="MT" {% if estado == 'MT' %}selected{% endif %}>Mato Grosso</option>
+                                            <option value="MS" {% if estado == 'MS' %}selected{% endif %}>Mato Grosso do Sul</option>
+                                            <option value="MG" {% if estado == 'MG' %}selected{% endif %}>Minas Gerais</option>
+                                            <option value="PA" {% if estado == 'PA' %}selected{% endif %}>Pará</option>
+                                            <option value="PB" {% if estado == 'PB' %}selected{% endif %}>Paraíba</option>
+                                            <option value="PR" {% if estado == 'PR' %}selected{% endif %}>Paraná</option>
+                                            <option value="PE" {% if estado == 'PE' %}selected{% endif %}>Pernambuco</option>
+                                            <option value="PI" {% if estado == 'PI' %}selected{% endif %}>Piauí</option>
+                                            <option value="RJ" {% if estado == 'RJ' %}selected{% endif %}>Rio de Janeiro</option>
+                                            <option value="RN" {% if estado == 'RN' %}selected{% endif %}>Rio Grande do Norte</option>
+                                            <option value="RS" {% if estado == 'RS' %}selected{% endif %}>Rio Grande do Sul</option>
+                                            <option value="RO" {% if estado == 'RO' %}selected{% endif %}>Rondônia</option>
+                                            <option value="RR" {% if estado == 'RR' %}selected{% endif %}>Roraima</option>
+                                            <option value="SC" {% if estado == 'SC' %}selected{% endif %}>Santa Catarina</option>
+                                            <option value="SP" {% if estado == 'SP' %}selected{% endif %}>São Paulo</option>
+                                            <option value="SE" {% if estado == 'SE' %}selected{% endif %}>Sergipe</option>
+                                            <option value="TO" {% if estado == 'TO' %}selected{% endif %}>Tocantins</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Cidade</label>
+                                        <input name="cidade" type="text" class="form-control" value="{{cidade}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Logradouro</label>
+                                        <input name="logradouro" type="text" class="form-control" value="{{logradouro}}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Complemento</label>
+                                        <input name="complemento" type="text" class="form-control" value="{{complemento}}">
+                                    </div>
+                                </div>
+                                <hr class="border-light m-0">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Informações pessoais</h6>
+                                    <div class="form-select">
+                                        <label for="nacionalidade">Nacionalidade</label>
+                                        <select name="nacionalidade">
+                                            <option {% if nacionalidade == 'Bras' %} selected {% endif %} value="Brasil">Brasil</option>
+                                            <option {% if nacionalidade == 'Afeg' %} selected {% endif %} value="Afeganistão">Afeganistão</option>
+                                            <option {% if nacionalidade == 'Áfri' %} selected {% endif %} value="África do Sul">África do Sul</option>
+                                            <option {% if nacionalidade == 'Albâ' %} selected {% endif %} value="Albânia">Albânia</option>
+                                            <option {% if nacionalidade == 'Alem' %} selected {% endif %} value="Alemanha">Alemanha</option>
+                                            <option {% if nacionalidade == 'Ando' %} selected {% endif %} value="Andorra">Andorra</option>
+                                            <option {% if nacionalidade == 'Ango' %} selected {% endif %} value="Angola">Angola</option>
+                                            <option {% if nacionalidade == 'Angu' %} selected {% endif %} value="Anguilla">Anguilla</option>
+                                            <option {% if nacionalidade == 'Anti' %} selected {% endif %} value="Antilhas Holandesas">Antilhas Holandesas</option>
+                                            <option {% if nacionalidade == 'Antá' %} selected {% endif %} value="Antárctida">Antárctida</option>
+                                            <option {% if nacionalidade == 'Antí' %} selected {% endif %} value="Antígua e Barbuda">Antígua e Barbuda</option>
+                                            <option {% if nacionalidade == 'Arge' %} selected {% endif %} value="Argentina">Argentina</option>
+                                            <option {% if nacionalidade == 'Argé' %} selected {% endif %} value="Argélia">Argélia</option>
+                                            <option {% if nacionalidade == 'Armê' %} selected {% endif %} value="Armênia">Armênia</option>
+                                            <option {% if nacionalidade == 'Arub' %} selected {% endif %} value="Aruba">Aruba</option>
+                                            <option {% if nacionalidade == 'Aráb' %} selected {% endif %} value="Arábia Saudita">Arábia Saudita</option>
+                                            <option {% if nacionalidade == 'Aust' %} selected {% endif %} value="Austrália">Austrália</option>
+                                            <option {% if nacionalidade == 'Áust' %} selected {% endif %} value="Áustria">Áustria</option>
+                                            <option {% if nacionalidade == 'Azer' %} selected {% endif %} value="Azerbaijão">Azerbaijão</option>
+                                            <option {% if nacionalidade == 'Baha' %} selected {% endif %} value="Bahamas">Bahamas</option>
+                                            <option {% if nacionalidade == 'Bahr' %} selected {% endif %} value="Bahrein">Bahrein</option>
+                                            <option {% if nacionalidade == 'Bang' %} selected {% endif %} value="Bangladesh">Bangladesh</option>
+                                            <option {% if nacionalidade == 'Barb' %} selected {% endif %} value="Barbados">Barbados</option>
+                                            <option {% if nacionalidade == 'Beli' %} selected {% endif %} value="Belize">Belize</option>
+                                            <option {% if nacionalidade == 'Beni' %} selected {% endif %} value="Benim">Benim</option>
+                                            <option {% if nacionalidade == 'Berm' %} selected {% endif %} value="Bermudas">Bermudas</option>
+                                            <option {% if nacionalidade == 'Biel' %} selected {% endif %} value="Bielorrússia">Bielorrússia</option>
+                                            <option {% if nacionalidade == 'Bolí' %} selected {% endif %} value="Bolívia">Bolívia</option>
+                                            <option {% if nacionalidade == 'Bots' %} selected {% endif %} value="Botswana">Botswana</option>
+                                            <option {% if nacionalidade == 'Brun' %} selected {% endif %} value="Brunei">Brunei</option>
+                                            <option {% if nacionalidade == 'Bulg' %} selected {% endif %} value="Bulgária">Bulgária</option>
+                                            <option {% if nacionalidade == 'Burk' %} selected {% endif %} value="Burkina Faso">Burkina Faso</option>
+                                            <option {% if nacionalidade == 'Buru' %} selected {% endif %} value="Burundi">Burundi</option>
+                                            <option {% if nacionalidade == 'Butã' %} selected {% endif %} value="Butão">Butão</option>
+                                            <option {% if nacionalidade == 'Bélg' %} selected {% endif %} value="Bélgica">Bélgica</option>
+                                            <option {% if nacionalidade == 'Bósn' %} selected {% endif %} value="Bósnia e Herzegovina">Bósnia e Herzegovina</option>
+                                            <option {% if nacionalidade == 'Cabo' %} selected {% endif %} value="Cabo Verde">Cabo Verde</option>
+                                            <option {% if nacionalidade == 'Cama' %} selected {% endif %} value="Camarões">Camarões</option>
+                                            <option {% if nacionalidade == 'Camb' %} selected {% endif %} value="Camboja">Camboja</option>
+                                            <option {% if nacionalidade == 'Cana' %} selected {% endif %} value="Canadá">Canadá</option>
+                                            <option {% if nacionalidade == 'Cata' %} selected {% endif %} value="Catar">Catar</option>
+                                            <option {% if nacionalidade == 'Caza' %} selected {% endif %} value="Cazaquistão">Cazaquistão</option>
+                                            <option {% if nacionalidade == 'Chad' %} selected {% endif %} value="Chade">Chade</option>
+                                            <option {% if nacionalidade == 'Chil' %} selected {% endif %} value="Chile">Chile</option>
+                                            <option {% if nacionalidade == 'Chin' %} selected {% endif %} value="China">China</option>
+                                            <option {% if nacionalidade == 'Chip' %} selected {% endif %} value="Chipre">Chipre</option>
+                                            <option {% if nacionalidade == 'Colô' %} selected {% endif %} value="Colômbia">Colômbia</option>
+                                            <option {% if nacionalidade == 'Como' %} selected {% endif %} value="Comores">Comores</option>
+                                            <option {% if nacionalidade == 'Core' %} selected {% endif %} value="Coreia do Norte">Coreia do Norte</option>
+                                            <option {% if nacionalidade == 'Core' %} selected {% endif %} value="Coreia do Sul">Coreia do Sul</option>
+                                            <option {% if nacionalidade == 'Cost' %} selected {% endif %} value="Costa do Marfim">Costa do Marfim</option>
+                                            <option {% if nacionalidade == 'Cost' %} selected {% endif %} value="Costa Rica">Costa Rica</option>
+                                            <option {% if nacionalidade == 'Croá' %} selected {% endif %} value="Croácia">Croácia</option>
+                                            <option {% if nacionalidade == 'Cuba' %} selected {% endif %} value="Cuba">Cuba</option>
+                                            <option {% if nacionalidade == 'Dina' %} selected {% endif %} value="Dinamarca">Dinamarca</option>
+                                            <option {% if nacionalidade == 'Djib' %} selected {% endif %} value="Djibouti">Djibouti</option>
+                                            <option {% if nacionalidade == 'Domi' %} selected {% endif %} value="Dominica">Dominica</option>
+                                            <option {% if nacionalidade == 'Egit' %} selected {% endif %} value="Egito">Egito</option>
+                                            <option {% if nacionalidade == 'El S' %} selected {% endif %} value="El Salvador">El Salvador</option>
+                                            <option {% if nacionalidade == 'Emir' %} selected {% endif %} value="Emirados Árabes Unidos">Emirados Árabes Unidos</option>
+                                            <option {% if nacionalidade == 'Equa' %} selected {% endif %} value="Equador">Equador</option>
+                                            <option {% if nacionalidade == 'Erit' %} selected {% endif %} value="Eritreia">Eritreia</option>
+                                            <option {% if nacionalidade == 'Escó' %} selected {% endif %} value="Escócia">Escócia</option>
+                                            <option {% if nacionalidade == 'Eslo' %} selected {% endif %} value="Eslováquia">Eslováquia</option>
+                                            <option {% if nacionalidade == 'Eslo' %} selected {% endif %} value="Eslovênia">Eslovênia</option>
+                                            <option {% if nacionalidade == 'Espa' %} selected {% endif %} value="Espanha">Espanha</option>
+                                            <option {% if nacionalidade == 'Esta' %} selected {% endif %} value="Estados Federados da Micronésia">Estados Federados da Micronésia</option>
+                                            <option {% if nacionalidade == 'Esta' %} selected {% endif %} value="Estados Unidos">Estados Unidos</option>
+                                            <option {% if nacionalidade == 'Estô' %} selected {% endif %} value="Estônia">Estônia</option>
+                                            <option {% if nacionalidade == 'Etió' %} selected {% endif %} value="Etiópia">Etiópia</option>
+                                            <option {% if nacionalidade == 'Fiji' %} selected {% endif %} value="Fiji">Fiji</option>
+                                            <option {% if nacionalidade == 'Fili' %} selected {% endif %} value="Filipinas">Filipinas</option>
+                                            <option {% if nacionalidade == 'Finl' %} selected {% endif %} value="Finlândia">Finlândia</option>
+                                            <option {% if nacionalidade == 'Fran' %} selected {% endif %} value="França">França</option>
+                                            <option {% if nacionalidade == 'Gabã' %} selected {% endif %} value="Gabão">Gabão</option>
+                                            <option {% if nacionalidade == 'Gana' %} selected {% endif %} value="Gana">Gana</option>
+                                            <option {% if nacionalidade == 'Geór' %} selected {% endif %} value="Geórgia">Geórgia</option>
+                                            <option {% if nacionalidade == 'Gibr' %} selected {% endif %} value="Gibraltar">Gibraltar</option>
+                                            <option {% if nacionalidade == 'Gran' %} selected {% endif %} value="Granada">Granada</option>
+                                            <option {% if nacionalidade == 'Gron' %} selected {% endif %} value="Gronelândia">Gronelândia</option>
+                                            <option {% if nacionalidade == 'Gréc' %} selected {% endif %} value="Grécia">Grécia</option>
+                                            <option {% if nacionalidade == 'Guad' %} selected {% endif %} value="Guadalupe">Guadalupe</option>
+                                            <option {% if nacionalidade == 'Guam' %} selected {% endif %} value="Guam">Guam</option>
+                                            <option {% if nacionalidade == 'Guat' %} selected {% endif %} value="Guatemala">Guatemala</option>
+                                            <option {% if nacionalidade == 'Guer' %} selected {% endif %} value="Guernesei">Guernesei</option>
+                                            <option {% if nacionalidade == 'Guia' %} selected {% endif %} value="Guiana">Guiana</option>
+                                            <option {% if nacionalidade == 'Guia' %} selected {% endif %} value="Guiana Francesa">Guiana Francesa</option>
+                                            <option {% if nacionalidade == 'Guin' %} selected {% endif %} value="Guiné">Guiné</option>
+                                            <option {% if nacionalidade == 'Guin' %} selected {% endif %} value="Guiné Equatorial">Guiné Equatorial</option>
+                                            <option {% if nacionalidade == 'Guin' %} selected {% endif %} value="Guiné-Bissau">Guiné-Bissau</option>
+                                            <option {% if nacionalidade == 'Gâmb' %} selected {% endif %} value="Gâmbia">Gâmbia</option>
+                                            <option {% if nacionalidade == 'Hait' %} selected {% endif %} value="Haiti">Haiti</option>
+                                            <option {% if nacionalidade == 'Hond' %} selected {% endif %} value="Honduras">Honduras</option>
+                                            <option {% if nacionalidade == 'Hong' %} selected {% endif %} value="Hong Kong">Hong Kong</option>
+                                            <option {% if nacionalidade == 'Hung' %} selected {% endif %} value="Hungria">Hungria</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilha Bouvet">Ilha Bouvet</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilha de Man">Ilha de Man</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilha do Natal">Ilha do Natal</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilha Heard e Ilhas McDonald">Ilha Heard e Ilhas McDonald</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilha Norfolk">Ilha Norfolk</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Cayman">Ilhas Cayman</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Cocos (Keeling)">Ilhas Cocos (Keeling)</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Cook">Ilhas Cook</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Feroé">Ilhas Feroé</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Geórgia do Sul e Sandwich do Sul">Ilhas Geórgia do Sul e Sandwich do Sul</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Malvinas">Ilhas Malvinas</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Marshall">Ilhas Marshall</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Menores Distantes dos Estados Unidos">Ilhas Menores Distantes dos Estados Unidos</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Salomão">Ilhas Salomão</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Virgens Americanas">Ilhas Virgens Americanas</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Virgens Britânicas">Ilhas Virgens Britânicas</option>
+                                            <option {% if nacionalidade == 'Ilha' %} selected {% endif %} value="Ilhas Åland">Ilhas Åland</option>
+                                            <option {% if nacionalidade == 'Indo' %} selected {% endif %} value="Indonésia">Indonésia</option>
+                                            <option {% if nacionalidade == 'Ingl' %} selected {% endif %} value="Inglaterra">Inglaterra</option>
+                                            <option {% if nacionalidade == 'Índi' %} selected {% endif %} value="Índia">Índia</option>
+                                            <option {% if nacionalidade == 'Iraq' %} selected {% endif %} value="Iraque">Iraque</option>
+                                            <option {% if nacionalidade == 'Irla' %} selected {% endif %} value="Irlanda do Norte">Irlanda do Norte</option>
+                                            <option {% if nacionalidade == 'Irla' %} selected {% endif %} value="Irlanda">Irlanda</option>
+                                            <option {% if nacionalidade == 'Irã"' %} selected {% endif %} value="Irã">Irã</option>
+                                            <option {% if nacionalidade == 'Islâ' %} selected {% endif %} value="Islândia">Islândia</option>
+                                            <option {% if nacionalidade == 'Isra' %} selected {% endif %} value="Israel">Israel</option>
+                                            <option {% if nacionalidade == 'Itál' %} selected {% endif %} value="Itália">Itália</option>
+                                            <option {% if nacionalidade == 'Iême' %} selected {% endif %} value="Iêmen">Iêmen</option>
+                                            <option {% if nacionalidade == 'Jama' %} selected {% endif %} value="Jamaica">Jamaica</option>
+                                            <option {% if nacionalidade == 'Japã' %} selected {% endif %} value="Japão">Japão</option>
+                                            <option {% if nacionalidade == 'Jers' %} selected {% endif %} value="Jersey">Jersey</option>
+                                            <option {% if nacionalidade == 'Jord' %} selected {% endif %} value="Jordânia">Jordânia</option>
+                                            <option {% if nacionalidade == 'Kiri' %} selected {% endif %} value="Kiribati">Kiribati</option>
+                                            <option {% if nacionalidade == 'Kuwa' %} selected {% endif %} value="Kuwait">Kuwait</option>
+                                            <option {% if nacionalidade == 'Laos' %} selected {% endif %} value="Laos">Laos</option>
+                                            <option {% if nacionalidade == 'Leso' %} selected {% endif %} value="Lesoto">Lesoto</option>
+                                            <option {% if nacionalidade == 'Letô' %} selected {% endif %} value="Letônia">Letônia</option>
+                                            <option {% if nacionalidade == 'Libé' %} selected {% endif %} value="Libéria">Libéria</option>
+                                            <option {% if nacionalidade == 'Liec' %} selected {% endif %} value="Liechtenstein">Liechtenstein</option>
+                                            <option {% if nacionalidade == 'Litu' %} selected {% endif %} value="Lituânia">Lituânia</option>
+                                            <option {% if nacionalidade == 'Luxe' %} selected {% endif %} value="Luxemburgo">Luxemburgo</option>
+                                            <option {% if nacionalidade == 'Líba' %} selected {% endif %} value="Líbano">Líbano</option>
+                                            <option {% if nacionalidade == 'Líbi' %} selected {% endif %} value="Líbia">Líbia</option>
+                                            <option {% if nacionalidade == 'Maca' %} selected {% endif %} value="Macau">Macau</option>
+                                            <option {% if nacionalidade == 'Mace' %} selected {% endif %} value="Macedônia">Macedônia</option>
+                                            <option {% if nacionalidade == 'Mada' %} selected {% endif %} value="Madagáscar">Madagáscar</option>
+                                            <option {% if nacionalidade == 'Mala' %} selected {% endif %} value="Malawi">Malawi</option>
+                                            <option {% if nacionalidade == 'Mald' %} selected {% endif %} value="Maldivas">Maldivas</option>
+                                            <option {% if nacionalidade == 'Mali' %} selected {% endif %} value="Mali">Mali</option>
+                                            <option {% if nacionalidade == 'Malt' %} selected {% endif %} value="Malta">Malta</option>
+                                            <option {% if nacionalidade == 'Malá' %} selected {% endif %} value="Malásia">Malásia</option>
+                                            <option {% if nacionalidade == 'Mari' %} selected {% endif %} value="Marianas Setentrionais">Marianas Setentrionais</option>
+                                            <option {% if nacionalidade == 'Marr' %} selected {% endif %} value="Marrocos">Marrocos</option>
+                                            <option {% if nacionalidade == 'Mart' %} selected {% endif %} value="Martinica">Martinica</option>
+                                            <option {% if nacionalidade == 'Maur' %} selected {% endif %} value="Mauritânia">Mauritânia</option>
+                                            <option {% if nacionalidade == 'Maur' %} selected {% endif %} value="Maurícia">Maurícia</option>
+                                            <option {% if nacionalidade == 'Mayo' %} selected {% endif %} value="Mayotte">Mayotte</option>
+                                            <option {% if nacionalidade == 'Mold' %} selected {% endif %} value="Moldávia">Moldávia</option>
+                                            <option {% if nacionalidade == 'Mong' %} selected {% endif %} value="Mongólia">Mongólia</option>
+                                            <option {% if nacionalidade == 'Mont' %} selected {% endif %} value="Montenegro">Montenegro</option>
+                                            <option {% if nacionalidade == 'Mont' %} selected {% endif %} value="Montserrat">Montserrat</option>
+                                            <option {% if nacionalidade == 'Moça' %} selected {% endif %} value="Moçambique">Moçambique</option>
+                                            <option {% if nacionalidade == 'Myan' %} selected {% endif %} value="Myanmar">Myanmar</option>
+                                            <option {% if nacionalidade == 'Méxi' %} selected {% endif %} value="México">México</option>
+                                            <option {% if nacionalidade == 'Môna' %} selected {% endif %} value="Mônaco">Mônaco</option>
+                                            <option {% if nacionalidade == 'Namí' %} selected {% endif %} value="Namíbia">Namíbia</option>
+                                            <option {% if nacionalidade == 'Naur' %} selected {% endif %} value="Nauru">Nauru</option>
+                                            <option {% if nacionalidade == 'Nepa' %} selected {% endif %} value="Nepal">Nepal</option>
+                                            <option {% if nacionalidade == 'Nica' %} selected {% endif %} value="Nicarágua">Nicarágua</option>
+                                            <option {% if nacionalidade == 'Nigé' %} selected {% endif %} value="Nigéria">Nigéria</option>
+                                            <option {% if nacionalidade == 'Niue' %} selected {% endif %} value="Niue">Niue</option>
+                                            <option {% if nacionalidade == 'Noru' %} selected {% endif %} value="Noruega">Noruega</option>
+                                            <option {% if nacionalidade == 'Nova' %} selected {% endif %} value="Nova Caledônia">Nova Caledônia</option>
+                                            <option {% if nacionalidade == 'Nova' %} selected {% endif %} value="Nova Zelândia">Nova Zelândia</option>
+                                            <option {% if nacionalidade == 'Níge' %} selected {% endif %} value="Níger">Níger</option>
+                                            <option {% if nacionalidade == 'Omã"' %} selected {% endif %} value="Omã">Omã</option>
+                                            <option {% if nacionalidade == 'Pala' %} selected {% endif %} value="Palau">Palau</option>
+                                            <option {% if nacionalidade == 'Pale' %} selected {% endif %} value="Palestina">Palestina</option>
+                                            <option {% if nacionalidade == 'Pana' %} selected {% endif %} value="Panamá">Panamá</option>
+                                            <option {% if nacionalidade == 'Papu' %} selected {% endif %} value="Papua-Nova Guiné">Papua-Nova Guiné</option>
+                                            <option {% if nacionalidade == 'Paqu' %} selected {% endif %} value="Paquistão">Paquistão</option>
+                                            <option {% if nacionalidade == 'Para' %} selected {% endif %} value="Paraguai">Paraguai</option>
+                                            <option {% if nacionalidade == 'País' %} selected {% endif %} value="País de Gales">País de Gales</option>
+                                            <option {% if nacionalidade == 'País' %} selected {% endif %} value="Países Baixos">Países Baixos</option>
+                                            <option {% if nacionalidade == 'Peru' %} selected {% endif %} value="Peru">Peru</option>
+                                            <option {% if nacionalidade == 'Pitc' %} selected {% endif %} value="Pitcairn">Pitcairn</option>
+                                            <option {% if nacionalidade == 'Poli' %} selected {% endif %} value="Polinésia Francesa">Polinésia Francesa</option>
+                                            <option {% if nacionalidade == 'Polô' %} selected {% endif %} value="Polônia">Polônia</option>
+                                            <option {% if nacionalidade == 'Port' %} selected {% endif %} value="Porto Rico">Porto Rico</option>
+                                            <option {% if nacionalidade == 'Port' %} selected {% endif %} value="Portugal">Portugal</option>
+                                            <option {% if nacionalidade == 'Quir' %} selected {% endif %} value="Quirguistão">Quirguistão</option>
+                                            <option {% if nacionalidade == 'Quên' %} selected {% endif %} value="Quênia">Quênia</option>
+                                            <option {% if nacionalidade == 'Rein' %} selected {% endif %} value="Reino Unido">Reino Unido</option>
+                                            <option {% if nacionalidade == 'Repú' %} selected {% endif %} value="República Centro-Africana">República Centro-Africana</option>
+                                            <option {% if nacionalidade == 'Repú' %} selected {% endif %} value="República Checa">República Checa</option>
+                                            <option {% if nacionalidade == 'Repú' %} selected {% endif %} value="República Democrática do Congo">República Democrática do Congo</option>
+                                            <option {% if nacionalidade == 'Repú' %} selected {% endif %} value="República do Congo">República do Congo</option>
+                                            <option {% if nacionalidade == 'Repú' %} selected {% endif %} value="República Dominicana">República Dominicana</option>
+                                            <option {% if nacionalidade == 'Reun' %} selected {% endif %} value="Reunião">Reunião</option>
+                                            <option {% if nacionalidade == 'Romê' %} selected {% endif %} value="Romênia">Romênia</option>
+                                            <option {% if nacionalidade == 'Ruan' %} selected {% endif %} value="Ruanda">Ruanda</option>
+                                            <option {% if nacionalidade == 'Rúss' %} selected {% endif %} value="Rússia">Rússia</option>
+                                            <option {% if nacionalidade == 'Saar' %} selected {% endif %} value="Saara Ocidental">Saara Ocidental</option>
+                                            <option {% if nacionalidade == 'Sain' %} selected {% endif %} value="Saint Martin">Saint Martin</option>
+                                            <option {% if nacionalidade == 'Sain' %} selected {% endif %} value="Saint-Barthélemy">Saint-Barthélemy</option>
+                                            <option {% if nacionalidade == 'Sain' %} selected {% endif %} value="Saint-Pierre e Miquelon">Saint-Pierre e Miquelon</option>
+                                            <option {% if nacionalidade == 'Samo' %} selected {% endif %} value="Samoa Americana">Samoa Americana</option>
+                                            <option {% if nacionalidade == 'Samo' %} selected {% endif %} value="Samoa">Samoa</option>
+                                            <option {% if nacionalidade == 'Sant' %} selected {% endif %} value="Santa Helena, Ascensão e Tristão da Cunha">Santa Helena, Ascensão e Tristão da Cunha</option>
+                                            <option {% if nacionalidade == 'Sant' %} selected {% endif %} value="Santa Lúcia">Santa Lúcia</option>
+                                            <option {% if nacionalidade == 'Sene' %} selected {% endif %} value="Senegal">Senegal</option>
+                                            <option {% if nacionalidade == 'Serr' %} selected {% endif %} value="Serra Leoa">Serra Leoa</option>
+                                            <option {% if nacionalidade == 'Seyc' %} selected {% endif %} value="Seychelles">Seychelles</option>
+                                            <option {% if nacionalidade == 'Sing' %} selected {% endif %} value="Singapura">Singapura</option>
+                                            <option {% if nacionalidade == 'Somá' %} selected {% endif %} value="Somália">Somália</option>
+                                            <option {% if nacionalidade == 'Sri ' %} selected {% endif %} value="Sri Lanka">Sri Lanka</option>
+                                            <option {% if nacionalidade == 'Suaz' %} selected {% endif %} value="Suazilândia">Suazilândia</option>
+                                            <option {% if nacionalidade == 'Sudã' %} selected {% endif %} value="Sudão">Sudão</option>
+                                            <option {% if nacionalidade == 'Suri' %} selected {% endif %} value="Suriname">Suriname</option>
+                                            <option {% if nacionalidade == 'Suéc' %} selected {% endif %} value="Suécia">Suécia</option>
+                                            <option {% if nacionalidade == 'Suíç' %} selected {% endif %} value="Suíça">Suíça</option>
+                                            <option {% if nacionalidade == 'Sval' %} selected {% endif %} value="Svalbard e Jan Mayen">Svalbard e Jan Mayen</option>
+                                            <option {% if nacionalidade == 'São ' %} selected {% endif %} value="São Cristóvão e Nevis">São Cristóvão e Nevis</option>
+                                            <option {% if nacionalidade == 'São ' %} selected {% endif %} value="São Marino">São Marino</option>
+                                            <option {% if nacionalidade == 'São ' %} selected {% endif %} value="São Tomé e Príncipe">São Tomé e Príncipe</option>
+                                            <option {% if nacionalidade == 'São ' %} selected {% endif %} value="São Vicente e Granadinas">São Vicente e Granadinas</option>
+                                            <option {% if nacionalidade == 'Sérv' %} selected {% endif %} value="Sérvia">Sérvia</option>
+                                            <option {% if nacionalidade == 'Síri' %} selected {% endif %} value="Síria">Síria</option>
+                                            <option {% if nacionalidade == 'Tadj' %} selected {% endif %} value="Tadjiquistão">Tadjiquistão</option>
+                                            <option {% if nacionalidade == 'Tail' %} selected {% endif %} value="Tailândia">Tailândia</option>
+                                            <option {% if nacionalidade == 'Taiw' %} selected {% endif %} value="Taiwan">Taiwan</option>
+                                            <option {% if nacionalidade == 'Tanz' %} selected {% endif %} value="Tanzânia">Tanzânia</option>
+                                            <option {% if nacionalidade == 'Terr' %} selected {% endif %} value="Terras Austrais e Antárticas Francesas">Terras Austrais e Antárticas Francesas</option>
+                                            <option {% if nacionalidade == 'Terr' %} selected {% endif %} value="Território Britânico do Oceano Índico">Território Britânico do Oceano Índico</option>
+                                            <option {% if nacionalidade == 'Timo' %} selected {% endif %} value="Timor-Leste">Timor-Leste</option>
+                                            <option {% if nacionalidade == 'Togo' %} selected {% endif %} value="Togo">Togo</option>
+                                            <option {% if nacionalidade == 'Tong' %} selected {% endif %} value="Tonga">Tonga</option>
+                                            <option {% if nacionalidade == 'Toqu' %} selected {% endif %} value="Toquelau">Toquelau</option>
+                                            <option {% if nacionalidade == 'Trin' %} selected {% endif %} value="Trinidad e Tobago">Trinidad e Tobago</option>
+                                            <option {% if nacionalidade == 'Tuní' %} selected {% endif %} value="Tunísia">Tunísia</option>
+                                            <option {% if nacionalidade == 'Turc' %} selected {% endif %} value="Turcas e Caicos">Turcas e Caicos</option>
+                                            <option {% if nacionalidade == 'Turq' %} selected {% endif %} value="Turquemenistão">Turquemenistão</option>
+                                            <option {% if nacionalidade == 'Turq' %} selected {% endif %} value="Turquia">Turquia</option>
+                                            <option {% if nacionalidade == 'Tuva' %} selected {% endif %} value="Tuvalu">Tuvalu</option>
+                                            <option {% if nacionalidade == 'Ucrâ' %} selected {% endif %} value="Ucrânia">Ucrânia</option>
+                                            <option {% if nacionalidade == 'Ugan' %} selected {% endif %} value="Uganda">Uganda</option>
+                                            <option {% if nacionalidade == 'Urug' %} selected {% endif %} value="Uruguai">Uruguai</option>
+                                            <option {% if nacionalidade == 'Uzbe' %} selected {% endif %} value="Uzbequistão">Uzbequistão</option>
+                                            <option {% if nacionalidade == 'Vanu' %} selected {% endif %} value="Vanuatu">Vanuatu</option>
+                                            <option {% if nacionalidade == 'Vati' %} selected {% endif %} value="Vaticano">Vaticano</option>
+                                            <option {% if nacionalidade == 'Vene' %} selected {% endif %} value="Venezuela">Venezuela</option>
+                                            <option {% if nacionalidade == 'Viet' %} selected {% endif %} value="Vietname">Vietname</option>
+                                            <option {% if nacionalidade == 'Wall' %} selected {% endif %} value="Wallis e Futuna">Wallis e Futuna</option>
+                                            <option {% if nacionalidade == 'Zimb' %} selected {% endif %} value="Zimbabwe">Zimbabwe</option>
+                                            <option {% if nacionalidade == 'Zâmb' %} selected {% endif %} value="Zâmbia">Zâmbia</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">CPF</label>
+                                        <input type="text" class="form-control" value="{{cpf}}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Data de nascimento</label>
+                                        <input type="text" class="form-control" value="{{data_nasc}}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Nacionalidade</label>
+                                        <input type="text" class="form-control" value="{{nacionalidade}}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Gênero</label>
+                                        <input type="text" class="form-control" value="{{genero}}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="estadocivil">Estado civil:</label>
+                                        <select name="estado_civil">
+                                            <option value="solteiro" {% if estado_civil == 'solteiro' %} selected {% endif %}>Solteiro</option>
+                                            <option value="casado" {% if estado_civil == 'casado' %} selected {% endif %}>Casado</option>
+                                            <option value="divorciado" {% if estado_civil == 'divorciado' %} selected {% endif %}>Divorciado</option>
+                                            <option value="viuvo" {% if estado_civil == 'viuvo' %} selected {% endif %}>Viúvo</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="tab-pane fade" id="account-notifications">
+                                <div class="card-body pb-2">
+                                    <h6 class="mb-4">Notificações</h6>
+                                    <div class="form-group">
+                                        <label class="switcher">
+                                            <input name="quer_notificacoes" type="checkbox" class="switcher-input" checked>
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                            <span class="switcher-label">Quero receber promoções e anúncios por e-mail</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-3">
+                <button type="submit" class="btn btn-primary">Salvar alterações</button>&nbsp;
+                <button type="reset" class="btn btn-default">Cancelar</button>
+            </div>
+        </div>
+    </form>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"></script>
+    <script src="../static/js/account_info.js"></script>
+</body>
+
+</html>

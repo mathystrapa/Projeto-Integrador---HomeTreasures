@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home Treasures</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sedgwick+Ave&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+    <script src="../static/js/index.js"></script>
+</head>
+<body>
+
+    <header>
+
+        <div class="menu">
+
+            <div class="left-side-menu">
+
+                <div class="logo"> 
+                        <h1>Home Treasures </h1>
+                </div>
+
+                <form>
+                  <input type="text" id="barra" placeholder="Busque...">
+                </form>
+                  
+                 <nav>
+                    <ul>
+                        <li><a href="/index">Inicio</a>
+                        <li><a href="/account-info">Olá, {{nome}}</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+                    
+            <div class="right-side-menu">
+                <a href="/carrinho"><img id="carrinho-img" src="../static/img/icon-cart.svg"></a>
+                <a href="/account-info"><img id="icon-avatar-img" src="../static/img/entrar.png" alt=""></a>
+            </div> 
+
+        </div>
+
+    </header>
+
+    <section id="produtos">
+
+        {% for infos_produto in infos_produtos %}
+
+        {% set nome = infos_produto['nome_produto'] %}
+        {% set descricao = infos_produto['descricao_produto'] %}
+        {% set link = infos_produto['link_imagem'] %}
+        {% set preco = infos_produto['preco_produto'] %}
+        {% set quantidade_carrinho = infos_produto['quantidade_carrinho'] %}
+        
+        <div id="nome_produto">
+            <h2>{{ nome }}</h2>
+        </div>
+        
+        <figure id="imagem_produto">
+            <img src="{{ link }}" alt="imagem_produto" height="400">
+        </figure>
+        
+        <div id="descricao_produto">
+            <p>{{ descricao }}</p>
+        </div>
+
+        <div class="controles">
+            <button class="adicionar-ao-carrinho" onclick="adicionarAoCarrinho('{{nome}}')">+</button>
+            <p>{{quantidade_carrinho}}</p>
+            <button class="remover-do-carrinho" onclick="removerDoCarrinho('{{nome}}')">-</button>
+        </div>
+        
+        <div id="preco">
+            <p>R$ {{ preco }}</p>
+        </div>
+
+        {% endfor %}
+
+    </section>
+
+</body>
+</html>

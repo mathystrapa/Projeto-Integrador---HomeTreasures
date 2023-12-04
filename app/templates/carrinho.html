@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carrinho de Compras</title>
+    <link rel="stylesheet" href="../static/css/carrinho.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+
+    {% if lenght > 0 %}
+
+    <header>
+      <span>Estamos quase lá</span>
+    </header>
+    <main>
+      <div class="page-title">Seu Carrinho</div>
+      <div class="content">
+        <section>
+          <table>
+            <thead>
+              <tr>
+                <th>Produto</th>
+                <th>Preço unitário</th>
+                <th>Quantidade</th>
+                <th>Total</th>
+                <th>-</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+                {% for index in range(lenght) %}
+
+              <tr>
+                <td>
+                  <div class="product">
+                    <img src="{{infos_produtos[index][2]}}" height="200"/>
+                    <div class="info">
+                      <div class="name">{{infos_produtos[index][0]}}</div>
+                    </div>
+                   </div>
+                </td>
+                <td>R$ {{infos_produtos[index][3]}}</td>
+                <td>
+                  <div class="qty">
+                    <span>{{infos_produtos[index][1]}}</span>
+                  </div>
+                </td>
+                <td>R$ {{infos_produtos[index][4]}}</td>
+              </tr>
+
+                {% endfor %}
+
+            </tbody>
+          </table>
+        </section>
+        <aside>
+          <div class="box">
+            <header>Resumo da compra</header>
+            <div class="info">
+              <div><span>Sub-total</span><span>R$ {{total}}</span></div>
+              <div><span>Frete</span><span>Gratuito</span></div>
+              <div>
+                <button>
+                  Adicionar cupom de desconto
+                  <i class="bx bx-right-arrow-alt"></i>
+                </button>
+              </div>
+            </div>
+            <footer>
+              <span>Total</span>
+              <span>R$ {{total}}</span>
+            </footer>
+          </div>
+          <button>Finalizar Compra</button>
+        </aside>
+      </div>
+    </main>
+
+    {% else %}
+
+    <header>
+        <span>Ooops ...</span>
+    </header>
+
+    <div id="empty">
+        <main>
+            <div class="page-title">Seu carrinho está vazio! <a href="/index"><strong>Volte às compras!</strong></a></div>
+            
+            <img src="https://cdn-icons-png.flaticon.com/512/2762/2762885.png" alt="carrinho-vazio" height="500" id="carrinho-vazio">
+    
+            <a href="/index"><button><strong>Clique aqui para voltar às compras!</strong></button></a>
+        </main>
+    </div>
+
+    {% endif %}
+  </body>
+</html>
