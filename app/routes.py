@@ -176,18 +176,14 @@ def update_account():
         email_contato = request.form['email_contato']
         telefone = request.form['telefone'].replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
         cep = request.form['cep'].replace('-', '')
-        nacionalidade = request.form['nacionalidade']
         estado = request.form['estado']
         cidade = request.form['cidade']
         logradouro = request.form['logradouro']
         complemento = request.form['complemento']
         estado_civil = request.form['estado_civil']
-        quer_notificacoes = request.form['quer_notificacoes']
 
         nova_senha = request.form['nova_senha']
         confirmar_nova_senha = request.form['confirmar_nova_senha']
-
-        print(quer_notificacoes)
 
         if nova_senha != confirmar_nova_senha:
             message = 'As senhas não coincidem.'
@@ -197,7 +193,7 @@ def update_account():
                 senha_antiga = server.select('hometreasures', 'CLIENTES', ['SENHA'], f""" EMAIL_LOGIN = '{email_login}' """)[0][0]
                 nova_senha = senha_antiga
 
-            result = server.update('hometreasures', 'CLIENTES', ['NOME', 'EMAIL_CONTATO', 'TELEFONE', 'CEP', 'NACIONALIDADE', 'ESTADO', 'CIDADE', 'LOGRADOURO', 'COMPLEMENTO', 'ESTADO_CIVIL', 'SENHA'], [f'{nome}', f'{email_contato}', f'{telefone}', f'{cep}', f'{nacionalidade}', f'{estado}', f'{cidade}', f'{logradouro}', f'{complemento}', f'{estado_civil}', f'{nova_senha}'], f""" EMAIL_LOGIN = '{email_login}' """)
+            result = server.update('hometreasures', 'CLIENTES', ['NOME', 'EMAIL_CONTATO', 'TELEFONE', 'CEP', 'ESTADO', 'CIDADE', 'LOGRADOURO', 'COMPLEMENTO', 'ESTADO_CIVIL', 'SENHA'], [f'{nome}', f'{email_contato}', f'{telefone}', f'{cep}', f'{estado}', f'{cidade}', f'{logradouro}', f'{complemento}', f'{estado_civil}', f'{nova_senha}'], f""" EMAIL_LOGIN = '{email_login}' """)
             if result[0]:
                 sucess_message = 'Suas informações foram atualizadas com sucesso!'
 

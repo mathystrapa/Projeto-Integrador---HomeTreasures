@@ -42,7 +42,8 @@ clients = """
     ('Cliente8', '1983-08-20', '89012345678', 'F', 'Solteiro', 'Brasil', 'cliente8@email.com', '89012345678', '89012345', 'CE', 'Fortaleza', 'Rua H', 'Casa 8', 'cliente8_login@email.com', 'senha8'),
     ('Cliente9', '1991-09-25', '90123456789', 'M', 'Casado', 'Estrangeiro', 'cliente9@email.com', '90123456789', '90123456', 'PE', 'Recife', 'Rua I', 'Apto 909', 'cliente9_login@email.com', 'senha9'),
     ('Cliente10', '1986-10-30', '01234567890', 'F', 'Solteiro', 'Brasil', 'cliente10@email.com', '01234567890', '01234567', 'GO', 'Goiânia', 'Rua J', 'Casa 10', 'cliente10_login@email.com', 'senha10'),
-    ('Matheus Strapasson', '2006-02-10', '09135052937', 'M', 'Solteiro', 'Brasil', 'matheustrapasson@gmail.com', '41996746161', '82710380', 'PR', 'Curitiba', 'Rua Howell Lewis Fry, 341', 'Bloco 2, apartamento 204', 'mathystrapa@gmail.com', '12345')
+    ('Matheus Strapasson', '2006-02-10', '09135052937', 'M', 'Solteiro', 'Brasil', 'matheustrapasson@gmail.com', '41996746161', '82710380', 'PR', 'Curitiba', 'Rua Howell Lewis Fry, 341', 'Bloco 2, apartamento 204', 'mathystrapa@gmail.com', '12345'),('carlos', '2006-02-10', '02135052937', 'M', 'Solteiro', 'Brasil', 'matheustrapasson@gmail.com', '41996746161', '82710380', 'PR', 'Curitiba', 'Rua Howell Lewis Fry, 341', 'Bloco 2, apartamento 204', 'carlos@gmail.com', '12345')
+    
 """
 
 orders = """

@@ -6,6 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="{{ url_for('static', filename='js/cadastro.js') }}"></script>
+    <link rel="stylesheet" href="../static/css/cadastro.css" />
     <title>Cadastre-se</title>
 </head>
 <body>
@@ -17,9 +18,8 @@
     {% block content %}
     <form action="/get-register-info" method="post">
         
-        <fieldset id="personal-info">
-
-            <h3>Informações pessoais</h3>
+        
+            <h3 id="Informações">Informações pessoais</h3>
 
             <div id="div-nome">
                 <label for="nome">Nome completo:</label>
@@ -309,10 +309,9 @@
                     <option value="Zâmbia">Zâmbia</option>
                 </select>
             </div>
+       
 
-        </fieldset>
-
-        <fieldset id="contact-info">
+        
 
             <h3>Informações para contato</h3>
 
@@ -326,9 +325,9 @@
                 <input type="tel" name="phone-number" id="telefone" maxlength="15" placeholder="(XX) XXXXX-XXXX" onkeyup="handlePhone(event)" required>
             </div>
 
-        </fieldset>
+        
 
-        <fieldset id="adress-info">
+        
              
             <div id="div-cep">
                 <label for="cep">CEP:</label>
@@ -388,9 +387,9 @@
                 <input type="text" name="complement" id="complemento" maxlength="30" size="20">
             </div>
 
-        </fieldset>
+        
 
-        <fieldset id="login-info">
+        
 
             <div id="div-emaillogin">
                 <label for="email-login">Email para login:</label>
@@ -404,7 +403,7 @@
                 <input type="password" name="confirm-password" id="confirmar-senha">
             </div>
 
-        </fieldset>
+        
 
         <input type="submit" name="submit" id="enviar" value="Cadastrar">
 

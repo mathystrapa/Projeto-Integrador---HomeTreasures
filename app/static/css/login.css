@@ -7,7 +7,7 @@
 }
 
 body {
-  background-image: url("../images/bg-signin.jpg");
+  background-image: url("../img/roxo.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed
@@ -62,6 +62,7 @@ h1{
 
 .label-float label{
   color: #272262;
+  pointer-event: none;
   position: absolute;
   top: 0;
   left: 0;
